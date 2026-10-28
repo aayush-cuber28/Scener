@@ -2,3 +2,5 @@ node_modules
 .env
 uploads
 Zip files
+# Personal report files (contain PRN etc.) - keep them out of the public code repo
+REPORTS/

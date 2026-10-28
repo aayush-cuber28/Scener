@@ -1,9 +1,11 @@
 const mongoose = require("mongoose");
+const { CATEGORIES } = require("../utils/genres");
 
 const titleSchema = new mongoose.Schema(
   {
     name: { type: String, required: true, trim: true },
-    category: { type: String, enum: ["movie", "song", "series"], required: true },
+    category: { type: String, enum: CATEGORIES, required: true },
+    genres: [{ type: String }],
     year: { type: Number },
     reviewText: { type: String, required: true },
     ownerScore: { type: Number, required: true, min: 0, max: 10 },
@@ -11,6 +13,7 @@ const titleSchema = new mongoose.Schema(
     voteCount: { type: Number, default: 0 },
     isMature: { type: Boolean, default: false },
     poster: { type: String, default: "" },
+    posterId: { type: String, default: "" }, // Cloudinary id, used to delete the old image
   },
   { timestamps: true }
 );

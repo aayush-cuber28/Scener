@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const TitleRequest = require("../models/TitleRequest");
 const User = require("../models/User");
 const { containsProfanity } = require("../utils/profanityFilter");
+const { isValidCategory } = require("../utils/genres");
 
 async function getRequests(req, res) {
   try {
@@ -30,7 +31,7 @@ async function createRequest(req, res) {
     if (!name || !name.trim() || !category) {
       return res.status(400).json({ message: "name and category are required" });
     }
-    if (!["movie", "song", "series"].includes(category)) {
+    if (!isValidCategory(category)) {
       return res.status(400).json({ message: "category must be movie, song or series" });
     }
     if (name.length > 100 || (note && note.length > 300)) {
